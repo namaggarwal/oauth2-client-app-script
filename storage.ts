@@ -6,11 +6,11 @@ class PropertyStorage {
     this.properties = properties;
   }
 
-  set(key, value) {
+  set(key: string, value: string) {
     return this.properties.setProperty(key, value);
   }
 
-  get(key) {
+  get(key: string) {
     return this.properties.getProperty(key);
   }
 }
