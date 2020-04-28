@@ -1,3 +1,4 @@
+
 class OAuth2Client {
   static readonly OAUTH2_STATE: string = "oauth2_state"
   readonly storage:  GoogleAppsScript.Properties.Properties
