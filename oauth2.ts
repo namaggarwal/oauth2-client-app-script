@@ -33,11 +33,21 @@ class OAuth2Client {
     return OAuth2Client.redirect(`${authUrl}?client_id=${this.clientID}&state=${state}&redirect_uri=${redirectURI}&scope=${scopes.join(' ')}&response_type=${responseType}`);
   }
 
-  getTokenFromAuthorizationCode(scopes: string[], redirectURI: string, state: string, code: string) {
+  getTokenFromAuthorizationCode(
+    scopes: string[],
+    redirectURI: string,
+    state: string,
+    code: string,
+  ) {
     return this.getToken(scopes, 'authorization_code', redirectURI, state, code);
   }
 
-  getTokenFromRefreshToken(scopes: string[], redirectURI: string, state: string, refreshToken: string) {
+  getTokenFromRefreshToken(
+    scopes: string[],
+    redirectURI: string,
+    state: string,
+    refreshToken: string,
+  ) {
     return this.getToken(scopes, 'refreshToken', redirectURI, state, '', refreshToken);
   }
 
