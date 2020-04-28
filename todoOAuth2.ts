@@ -13,24 +13,6 @@ class TODOOAuth2Client extends OAuth2Client {
   ) {
     super(storage, clientID, clientSecret, TODOOAuth2Client.WELL_KNOWN_URLS);
   }
-
-  getToken(
-    scopes: string[],
-    redirectURI: string,
-    state: string,
-    code: string,
-  ) {
-    return super.getTokenFromAuthorizationCode(scopes, redirectURI, state, code);
-  }
-
-  getTokenFromRefreshToken(
-    scopes: string[],
-    redirectURI: string,
-    state: string,
-    refreshToken: string,
-  ) {
-    return super.getTokenFromRefreshToken(scopes, redirectURI, state, refreshToken);
-  }
 }
 
 export default TODOOAuth2Client;
