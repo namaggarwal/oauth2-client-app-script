@@ -39,30 +39,28 @@ class OAuth2Client {
     state: string,
     code: string,
   ) {
-    return this.getToken(scopes, 'authorization_code', redirectURI, state, code);
+    const storedState = this.storage.getProperty(OAuth2Client.OAUTH2_STATE);
+    if (state !== storedState) {
+      throw new Error('invalid state');
+    }
+    return this.getToken(scopes, 'authorization_code', redirectURI, code);
   }
 
   getTokenFromRefreshToken(
     scopes: string[],
     redirectURI: string,
-    state: string,
     refreshToken: string,
   ) {
-    return this.getToken(scopes, 'refreshToken', redirectURI, state, '', refreshToken);
+    return this.getToken(scopes, 'refresh_token', redirectURI, '', refreshToken);
   }
 
-  getToken(
+  private getToken(
     scopes: string[],
     grantType: string,
     redirectURI: string,
-    state: string,
     code: string,
     refreshToken?: string,
   ) {
-    const storedState = this.storage.getProperty(OAuth2Client.OAUTH2_STATE);
-    if (state !== storedState) {
-      throw new Error('invalid state');
-    }
     const tokenUri: string = this.wellKnownUrls.get('token_endpoint');
     let data = `client_id=${this.clientID}&scope=${scopes.join(' ')}&redirect_uri=${redirectURI}&grant_type=${grantType}&client_secret=${this.clientSecret}`;
     switch (grantType) {
