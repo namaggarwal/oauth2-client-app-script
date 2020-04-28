@@ -5,7 +5,7 @@ import TODOOAuth2Client from './todoOAuth2';
 function tryIt() {
   const userProperties = PropertiesService.getUserProperties();
 
-  const todo = new TODOOAuth2Client(userProperties, '41a1b736-4361-4bce-b312-2a667f790792');
+  const todo = new TODOOAuth2Client(userProperties, '3681c137-1a75-48cb-8628-fe61ed13dda3');
   return todo.authorize('https://localhost', ['Tasks.Read']);
 }
 

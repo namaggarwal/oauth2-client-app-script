@@ -15,7 +15,7 @@ class OAuth2Client {
     const state = Math.random().toString(36).substring(2);
     this.storage.setProperty(OAuth2Client.OAUTH2_STATE, state);
     const authUrl = this.wellKnownUrls.get('authorization_endpoint');
-    return OAuth2Client.redirect(`${authUrl}?client_id=${this.clientID}&state=${state}&redirect_uri=${redirectURI}&scopes=${scopes.join(' ')}`);
+    return OAuth2Client.redirect(`${authUrl}?client_id=${this.clientID}&state=${state}&redirect_uri=${redirectURI}&scope=${scopes.join(' ')}`);
   }
 
   getToken(code: String, state: String) {
