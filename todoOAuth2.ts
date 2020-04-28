@@ -2,7 +2,7 @@ import OAuth2Client from './oauth2';
 
 class TODOOAuth2Client extends OAuth2Client {
   static readonly WELL_KNOWN_URLS: Map<String, String> = new Map(<[String, String][]>([
-    [String('authorization_endpoint'), String('https://www.google.com/authorize')],
+    [String('authorization_endpoint'), String('https://login.microsoftonline.com/common/oauth2/v2.0/authorize')],
   ]))
 
   constructor(storage: GoogleAppsScript.Properties.Properties, clientID: String) {
