@@ -6,8 +6,8 @@ class TODOOAuth2Client extends OAuth2Client {
     ['token_endpoint', 'https://login.microsoftonline.com/common/oauth2/v2.0/token'],
   ]))
 
-  constructor(storage: GoogleAppsScript.Properties.Properties, clientID: string) {
-    super(storage, clientID, TODOOAuth2Client.WELL_KNOWN_URLS);
+  constructor(storage: GoogleAppsScript.Properties.Properties, clientID: string, clientSecret: string) {
+    super(storage, clientID, clientSecret, TODOOAuth2Client.WELL_KNOWN_URLS);
   }
 }
 

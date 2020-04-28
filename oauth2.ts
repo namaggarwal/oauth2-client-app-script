@@ -8,14 +8,18 @@ class OAuth2Client {
 
   readonly clientID: string
 
+  readonly clientSecret: string
+
   constructor(
     storage: GoogleAppsScript.Properties.Properties,
     clientID: string,
+    clientSecret: string,
     wellKnownUrls: Map<string, string>,
   ) {
     this.wellKnownUrls = wellKnownUrls;
     this.storage = storage;
     this.clientID = clientID;
+    this.clientSecret = clientSecret;
   }
 
   authorize(
@@ -35,7 +39,7 @@ class OAuth2Client {
       throw new Error('invalid state');
     }
     const tokenUri: string = this.wellKnownUrls.get('token_endpoint');
-    const data = `client_id=${this.clientID}&scope=${scopes.join(' ')}&code=${code}&redirect_uri=${redirectURI}&grant_type=${grantType}`;
+    const data = `client_id=${this.clientID}&scope=${scopes.join(' ')}&code=${code}&redirect_uri=${redirectURI}&grant_type=${grantType}&client_secret=${this.clientSecret}`;
     // eslint-disable-next-line camelcase
     const method: GoogleAppsScript.URL_Fetch.HttpMethod = 'post';
     const options = {
