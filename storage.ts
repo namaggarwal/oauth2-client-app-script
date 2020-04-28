@@ -1,4 +1,3 @@
-
 class PropertyStorage {
   readonly properties: GoogleAppsScript.Properties.Properties
 
