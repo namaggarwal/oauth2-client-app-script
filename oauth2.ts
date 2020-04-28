@@ -20,13 +20,11 @@ class OAuth2Client {
   getToken(code: String, state: String) {
     const storedState = this.storage.getProperty(OAuth2Client.OAUTH2_STATE);
     if (state !== storedState) {
-      // eslint-disable-next-line no-undef
       throw new Error('invalid state');
     }
   }
 
   static redirect(url: String): GoogleAppsScript.HTML.HtmlOutput {
-    // eslint-disable-next-line no-undef
     return HtmlService.createHtmlOutput(
       `<script>window.top.location.href="${url}";</script>`,
     );
