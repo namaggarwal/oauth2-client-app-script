@@ -6,7 +6,7 @@ function tryIt() {
   const userProperties = PropertiesService.getUserProperties();
 
   const todo = new TODOOAuth2Client(userProperties, '3681c137-1a75-48cb-8628-fe61ed13dda3');
-  return todo.authorize('https://localhost', ['Tasks.Read']);
+  return todo.authorize('http://localhost', ['Tasks.Read'], 'code');
 }
 
 

@@ -11,11 +11,11 @@ class OAuth2Client {
     this.clientID = clientID;
   }
 
-  authorize(redirectURI: String, scopes: String[]): GoogleAppsScript.HTML.HtmlOutput {
+  authorize(redirectURI: String, scopes: String[], responseType: String): GoogleAppsScript.HTML.HtmlOutput {
     const state = Math.random().toString(36).substring(2);
     this.storage.setProperty(OAuth2Client.OAUTH2_STATE, state);
     const authUrl = this.wellKnownUrls.get('authorization_endpoint');
-    return OAuth2Client.redirect(`${authUrl}?client_id=${this.clientID}&state=${state}&redirect_uri=${redirectURI}&scope=${scopes.join(' ')}`);
+    return OAuth2Client.redirect(`${authUrl}?client_id=${this.clientID}&state=${state}&redirect_uri=${redirectURI}&scope=${scopes.join(' ')}&response_type=${responseType}`);
   }
 
   getToken(code: String, state: String) {
