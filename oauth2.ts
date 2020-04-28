@@ -33,13 +33,38 @@ class OAuth2Client {
     return OAuth2Client.redirect(`${authUrl}?client_id=${this.clientID}&state=${state}&redirect_uri=${redirectURI}&scope=${scopes.join(' ')}&response_type=${responseType}`);
   }
 
-  getToken(code: string, state: string, scopes: string[], grantType: string, redirectURI: string) {
+  getTokenFromAuthorizationCode(scopes: string[], redirectURI: string, state: string, code: string) {
+    return this.getToken(scopes, 'authorization_code', redirectURI, state, code);
+  }
+
+  getTokenFromRefreshToken(scopes: string[], redirectURI: string, state: string, refreshToken: string) {
+    return this.getToken(scopes, 'refreshToken', redirectURI, state, '', refreshToken);
+  }
+
+  getToken(
+    scopes: string[],
+    grantType: string,
+    redirectURI: string,
+    state: string,
+    code: string,
+    refreshToken?: string,
+  ) {
     const storedState = this.storage.getProperty(OAuth2Client.OAUTH2_STATE);
     if (state !== storedState) {
       throw new Error('invalid state');
     }
     const tokenUri: string = this.wellKnownUrls.get('token_endpoint');
-    const data = `client_id=${this.clientID}&scope=${scopes.join(' ')}&code=${code}&redirect_uri=${redirectURI}&grant_type=${grantType}&client_secret=${this.clientSecret}`;
+    let data = `client_id=${this.clientID}&scope=${scopes.join(' ')}&redirect_uri=${redirectURI}&grant_type=${grantType}&client_secret=${this.clientSecret}`;
+    switch (grantType) {
+      case 'authorization_code':
+        data = `${data}&code=${code}`;
+        break;
+      case 'refresh_token':
+        data = `${data}&refresh_token=${refreshToken}`;
+        break;
+      default:
+    }
+
     // eslint-disable-next-line camelcase
     const method: GoogleAppsScript.URL_Fetch.HttpMethod = 'post';
     const options = {

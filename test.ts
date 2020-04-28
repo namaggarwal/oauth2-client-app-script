@@ -17,6 +17,11 @@ function tryAccessToken() {
   console.log(todo.getToken('M6343fa4d-a72b-5bc3-9429-95d299fb99ff', '6ncgnkhy6w9', ['Tasks.Read', 'offline_access'], 'authorization_code', 'http://localhost'));
 }
 
+function storeClientSecret() {
+  const userProperties = PropertiesService.getUserProperties();
+  userProperties.setProperty('client_secret', '');
+}
+
 function doGet(e: GoogleAppsScript.Events.DoGet) {
   return tryIt();
 }
